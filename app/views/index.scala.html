@@ -10,12 +10,27 @@
 <body ng-app="chatApp" ng-controller="chatController" layout="row" layout-align="center stretch">
 
    <md-card flex="none" layout="column">
+
        <md-content flex="90" id="message-pane" style="width: 800px;
        background: url(http://gifimage.net/wp-content/uploads/2017/06/whatsapp-gif-4.gif);
        background-repeat:no-repeat;
        background-size:cover;
        background-position: right bottom">
 
+       <div ng-repeat="message in messages" layout="column"
+       layout-align="{{message.sender=='BOT' ? 'start start' : 'start end'}}">
+        <md-card style="max-width: 75%;border-radius: 10px; padding: 10px; font-size: 20px;" ng-style="message.sender=='BOT' ?
+        {'background-color':'#FFB74D'}:
+        {'background-color':'#1b9ee2'}">
+
+        <span>{{message.text}}</span>
+        <span ng-bind-html="trust(message.feedResponse.description)">{{message.feedResponse.description}}</span>
+    <span layout-align="end end" style="margin-top: 4px; float: right; color: #666666 ; font-size: 20px;"> {{message.time}} </span>    
+      </md-card>
+       </div>
+
+      
+    
 
        </md-content>
        <md-card flex="10" style="margin: 0px" layout="row" layout-align="space-between center" class="md-whiteframe-8dp">
